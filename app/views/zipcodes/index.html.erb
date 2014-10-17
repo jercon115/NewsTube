@@ -1,0 +1,40 @@
+<h1>Listing zipcodes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Lat</th>
+      <th>Long</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @zipcodes.each do |zipcode| %>
+      <tr>
+        <td><%= zipcode.code %></td>
+        <td><%= zipcode.lat %></td>
+        <td><%= zipcode.long %></td>
+        <td><%= link_to 'Show', zipcode %></td>
+        <td><%= link_to 'Edit', edit_zipcode_path(zipcode) %></td>
+        <td><%= link_to 'Destroy', zipcode, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Zipcode', new_zipcode_path %>
+
+<br/><br/><br/>
+
+<%= form_for :import_csv, :url => {:action => 'loadzipdb'}, :html => {:multipart => true} do |f| %>
+  <%= f.file_field :csv %>
+  <%= f.submit 'Upload CSV', :class => 'btn' %>
+<%end%>
+
+<%= link_to "Delete DB", { :action => "resetzipdb"}, :confirm => 'Are you sure?'%>

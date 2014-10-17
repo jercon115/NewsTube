@@ -1,0 +1,20 @@
+== Overview
+
+NewsTube is a youtube interface designed for journalists or average news consumers as a better way of finding
+news videos. This Heroku webapp is programmed using Ruby on Rails and uses the Youtube API and Twitter API. Several databases
+are also used to store the zipcodes and channels. Adding more channels can be done at newstube.herokuapp.com/channels.
+
+== Installation and Usage
+- Install RVM, Ruby 2.0.0, Rails 4.0.0 and Ruby Gem 
+- Clone this repository 
+- Run <tt>bundle install</tt> to install Gems
+- Run <tt>rake db:migrate</tt> to import the database 
+
+==API Key
+- Please replace the API keys for both Youtube and Twitter 
+- The Youtube key is placed in /app/assets/javascript/search.js 
+- The Twitter key is placed in /app/controllers/pages_controller.rb 
+
+==Local Development 			
+In order to see result locally, you can go to localhost:3000/channels and upload the zipcode.csv and channels.csv in the main folder of this 
+repository. By uploading them, you should be able to see search results locally in the media source, local and advocacy categories. 

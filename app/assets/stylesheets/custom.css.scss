@@ -1,0 +1,181 @@
+@import "bootstrap";
+
+@font-face { 
+	font-family: 'StMarie-Thin'; 
+	src: font-url('StMarie-Thin.otf');
+}
+
+body { 
+	padding: 50px 0px;
+	font-family: 'StMarie-Thin';
+	text-align: center;
+	background-color: black;
+	color: white;
+}
+
+a {
+	font-size: 20px;
+}
+
+td {
+	padding: 1px 10px;
+}
+
+.header {
+	margin-top: 150px;
+	margin-bottom: 30px;
+	font-weight:bold;
+	min-width: 500px;
+	padding-top: 20px;
+}
+
+.logo {
+}
+
+.queryForm {
+}
+
+.title {
+	font-size: 85px;
+	line-height: 85px;
+	color: white;
+}
+
+.tagLine {
+	display: block;
+	font-size: 23px;
+	margin: 15px 0px;
+	white-space: nowrap;
+}
+
+.title:hover {
+	text-decoration: none;
+	color: white;
+}
+
+.headerImg {
+	margin: 0px 2px 25px 2px;
+	width: 150px;
+}
+
+.search {
+	width:280px;
+	margin-right: 10px;
+}
+
+.category {
+	border-color: #222;
+	font-size: 20px;
+	padding: 15px 0px;
+	font-weight:bold;
+}
+
+.categories {
+	display: none;
+}
+
+.category:hover {
+	cursor:pointer;
+	color: #999;
+		font-weight:normal;
+}
+
+.videoChannelName {
+	text-align: left;
+	width: 125px;
+	display: inline-block;
+	overflow: hidden;
+	white-space: nowrap;
+	vertical-align: middle;
+}
+
+.videoDate {
+	text-align: right;
+	width: 125px;
+	display: inline-block;
+	overflow: hidden;
+	white-space: nowrap;
+	vertical-align: middle;
+}
+
+.videoList{
+	height:240px;	
+	white-space: nowrap;
+}
+
+.videoListWrapper {
+	width: 100%;
+	overflow-y: hidden;
+	display:none;
+	background: #222;
+}
+
+.triangle {
+	margin: 0 auto;
+    width: 0;
+    height: 0;
+    border: solid 20px;
+    border-color: black transparent transparent transparent;
+}
+
+.triangleWrapper {
+	width: 100%;
+	display:none;
+	background: #222;
+}
+
+.vid {
+	vertical-align: top;
+	width: 250px;
+	height: 210px;
+	margin: 0px 15px 0px 15px;
+	display:inline-block;
+	white-space: normal;
+}
+
+.moreBtn {
+	background-image: url('plus1.png');
+	background-size: cover;
+	background-color: #222;
+	margin: 60px 20px 0px 10px;
+	width: 60px;
+	height: 60px;
+	border: none;
+}
+
+.moreBtn:hover {
+	background-image: url('plus2.png');
+}
+
+.field {
+	display: inline-block;
+	padding: 0px 10px;
+}
+
+#zipcode {
+	width: 65px;
+	margin-right: 8px;
+	margin-left: 10px;
+}
+
+.zipcodebtn {
+	margin-left: 8px;
+}
+
+.zipcodeform {
+	margin-bottom:0px;
+	padding-bottom: 15px;
+}
+
+.zipcodelabel {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.description {
+	font-size:20px;
+	margin-top: -10px;
+	padding-bottom: 10px;
+	font-weight:bold;
+	white-space: nowrap;
+}
