@@ -41,10 +41,10 @@ class PagesController < ApplicationController
   def twitter
       #please use your own api keys here 
     Twitter.configure do |config|
-      config.consumer_key = 'tJO12Hz2jQGHYEZZNWuEg'
-      config.consumer_secret = 'u6izuQhp6e27MYAF8HeNMttZIClDlynD15nEUwrHSE'
-      config.oauth_token = '868988989-SM0X85NmAzJPhVPLKUEj9SS2Ab3mBIbW7qLFpQIE'
-      config.oauth_token_secret = 'rVRqjYtBSLWEtX1aZrqa9P21CAMk92GfUsCC1wL8PY7Ht'
+      config.consumer_key = 'ChH4jjRPwOn4l9ptn9q6ZZ2De'
+      config.consumer_secret = '1AgZCRJBtRQiXrCJNEjfRZsRC4dqVO6dj54VF4YvMFqT5M2fww'
+      config.oauth_token = '2837796245-TvfIANDk55Ek0iWSkdSlMiRofFCvOBz9GEqN1Xl'
+      config.oauth_token_secret = 'ebK4ChVc866ZEqW2IrF4IwpVwAKK7wvzJGHDtan3ZdfHB'
     end
     query = params[:query] 
     searcharr = Twitter.search(query +" youtube -rt", :count => 40, :result_type => "recent").results.map do |status|
