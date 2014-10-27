@@ -212,6 +212,7 @@ function displayVideo(channel, time, videoId, imgUrl, title, category)
 
 function getTopVideos()
 {
+	alert("getTopVideos");
 	var topVideos = gapi.client.youtube.videos.list({
 		   part: 'snippet',
 		   chart: 'mostPopular',

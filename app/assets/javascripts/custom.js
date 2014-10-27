@@ -6,6 +6,7 @@ function initSearch() {
       }
     });
 	
+	alert("initSearch");
 	getTopVideos();
 }
 
