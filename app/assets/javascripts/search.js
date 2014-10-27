@@ -212,7 +212,6 @@ function displayVideo(channel, time, videoId, imgUrl, title, category)
 
 function getTopVideos()
 {
-	alert("getTopVideos");
 	var topVideos = gapi.client.youtube.videos.list({
 		   part: 'snippet',
 		   chart: 'mostPopular',
@@ -220,8 +219,9 @@ function getTopVideos()
 		   videoCategoryId: '25',
 		   maxResults: 5});
 	
-	$.each(videoList.items.slice(0,1), function(index, video)
+	$.each(topVideos.items.slice(0,1), function(index, video)
 	{
+		alert(video.id);
 		var topHtml = '<div class="description">Top News Videos:</div><br>'
 		topHtml += '<iframe width="640" height="390" src="http://www.youtube.com/embed/';
 		topHtml += video.id;
