@@ -220,8 +220,13 @@ function getTopVideos()
 		   videoCategoryId: '25',
 		   maxResults: 5});
 	alert("Test");
-	alert(topVideos.items.length);
-	$.each(topVideos.items.slice(0,1), function(index, video)
+	
+	if (topVideos.items == undefined || topVideos.items == 0)
+	{//No results
+	alert("No results");
+	}
+  
+	$.each(results.slice(0,1), function(index, video)
 	{
 		alert(video.id);
 		var topHtml = '<div class="description">Top News Videos:</div><br>'
