@@ -5,8 +5,6 @@ function initSearch() {
       	$('#zipcode').val(data.zipcode);
       }
     });
-	
-	getTopVideos();
 }
 
 function toggleCategory(category)

@@ -4,6 +4,7 @@ function onClientLoad() {
 
 function onYouTubeApiLoad() {
    gapi.client.setApiKey('AIzaSyAFxd-832oMCK_33cqsRBBoh7EdYHzV2oM'); //Change to your own Youtube API key here
+   getTopVideos();
 }
 
 function searchWithIds(prominentIds, advocacyIds){  
@@ -221,18 +222,20 @@ function getTopVideos()
 		   maxResults: 5});
 	alert("Test");
 	
-	if (topVideos.items == undefined || topVideos.items == 0)
-	{//No results
-	alert("No results");
+	topVideos.execute(function(response) {
+		if (response.items == undefined || response.items.length == 0)
+		{//No results
+		alert("No results");
+		}
+	  
+		$.each(response.slice(0,1), function(index, video)
+		{
+			alert(video.id);
+			var topHtml = '<div class="description">Top News Videos:</div><br>'
+			topHtml += '<iframe width="640" height="390" src="http://www.youtube.com/embed/';
+			topHtml += video.id;
+			topHtml += 'frameborder="0" allowfullscreen></iframe>';
+			$('#topNewsVideos').html(topHtml);	
+		});
 	}
-  
-	$.each(results.slice(0,1), function(index, video)
-	{
-		alert(video.id);
-		var topHtml = '<div class="description">Top News Videos:</div><br>'
-		topHtml += '<iframe width="640" height="390" src="http://www.youtube.com/embed/';
-		topHtml += video.id;
-		topHtml += 'frameborder="0" allowfullscreen></iframe>';
-		$('#topNewsVideos').html(topHtml);	
-	});
 }
