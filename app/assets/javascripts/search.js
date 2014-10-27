@@ -226,5 +226,5 @@ function getTopVideos{
 		topHtml += video.id;
 		topHtml += 'frameborder="0" allowfullscreen></iframe>';
 		$('#topNewsVideos').html(topHtml);	
-	}
+	});
 }
