@@ -218,7 +218,7 @@ function getTopVideos()
 		   regionCode: 'US',
 		   videoCategoryId: '25',
 		   maxResults: 5});
-	
+	alert(topVideos.length);
 	$.each(topVideos.items.slice(0,1), function(index, video)
 	{
 		alert(video.id);
