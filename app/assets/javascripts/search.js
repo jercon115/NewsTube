@@ -209,22 +209,3 @@ function displayVideo(channel, time, videoId, imgUrl, title, category)
 
   $('#' + category).append(video);
 }
-
-function getTopVideos()
-{
-	var topVideos = gapi.client.youtube.videos.list({
-		   part: 'snippet',
-		   chart: 'mostPopular',
-		   regionCode: 'US',
-		   videoCategoryId: '25',
-		   maxResults: 5});
-	
-	$.each(videoList.items.slice(0,0), function(index, video)
-	{
-		var topHtml = '<div class="description">Top News Videos:</div><br>'
-		topHtml += '<iframe width="640" height="390" src="http://www.youtube.com/embed/';
-		topHtml += video.id;
-		topHtml += 'frameborder="0" allowfullscreen></iframe>';
-		$('#topNewsVideos').html(topHtml);	
-	});
-}
