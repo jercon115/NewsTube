@@ -222,20 +222,12 @@ function getTopVideos()
 	
 	topVideos.execute(function(response) {
 		alert("Done!");
-		alert(response.items.length);
-		if (response.items == undefined || response.items.length == 0)
-		{//No results
-			alert("No results");
-		}
-	  
-		$.each(response.slice(0,1), function(index, video)
-		{
-			alert(video.id);
-			var topHtml = '<div class="description">Top News Videos:</div><br>'
-			topHtml += '<iframe width="640" height="390" src="http://www.youtube.com/embed/';
-			topHtml += video.id;
-			topHtml += 'frameborder="0" allowfullscreen></iframe>';
-			$('#topNewsVideos').html(topHtml);	
-		});
+		var video = response.items[0];
+		alert(video.id);
+		var topHtml = '<div class="description">Top News Videos:</div><br>'
+		topHtml += '<iframe width="640" height="390" src="http://www.youtube.com/embed/';
+		topHtml += video.id;
+		topHtml += 'frameborder="0" allowfullscreen></iframe>';
+		$('#topNewsVideos').html(topHtml);	
 	});
 }
