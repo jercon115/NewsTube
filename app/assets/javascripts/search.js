@@ -226,18 +226,22 @@ function getTopVideos()
 		   maxResults: 5});
 	
 	topVideos.execute(function(response) {
-
 		if (response.items == undefined || response.items.length == 0)
 		{//No results
 			$('#topNewsVideos').html('<div class="description">Top News Videos:</div><br><h4>No videos found</h4>');
 		} else {
-			var video = response.items[0];
-			//alert(video.id);
 			var topHtml = '<div class="description">Top News Videos:</div><br>';
-			topHtml += '<iframe width="640" height="390" src="http://www.youtube.com/embed/';
-			topHtml += video.id;
-			topHtml += ' frameborder="0" allowfullscreen></iframe>';
+			$.each(response.items, function(index, video) {
+				var videoHtml = '<iframe';
+				videoHtml += ' id="topVid'+(index+1)+'"';
+				videoHtml += ' class="topVid" width="640" height="390" src="http://www.youtube.com/embed/';
+				videoHtml += video.id;
+				videoHtml += '" frameborder="0" allowfullscreen></iframe>';
+				
+				topHtml += videoHtml;
+			});
 			$('#topNewsVideos').html(topHtml);
+			handleTopVid('topVid1');
 		}
 	});
              $('.categories').fadeIn('slow');

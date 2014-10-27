@@ -58,7 +58,7 @@ function adjustHeaderCSS()
 		left: "20px"
 	});
 
-	$("#headerImages").css({
+	$(".headerTopVideos").css({
 		display: 'none'
 	});
 
@@ -75,4 +75,10 @@ function adjustHeaderCSS()
 	$(".header").css({
 		marginBottom: "0px"
 	});
+}
+
+function handleTopVid(selectedVid) {
+	$(".topVid").css("display","none");
+	
+	$('#' + selectedVid).css("display","inline");
 }

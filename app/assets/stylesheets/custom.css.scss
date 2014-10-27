@@ -37,7 +37,7 @@ td {
 	margin-left: 10px;
 }
 .header {
-	margin-top: 150px;
+	margin-top: 50px;
 	margin-bottom: 30px;
 	font-weight:bold;
 	min-width: 500px;
@@ -71,9 +71,8 @@ td {
 	color: white;
 }
 
-.headerImg {
+.headerTopVideos {
 	margin: 0px 2px 25px 2px;
-	width: 150px;
 }
 
 .search {
@@ -175,7 +174,10 @@ td {
 	margin-right: 8px;
 	margin-left: 10px;
 }
-
+.headerImg {
+margin: 0px 2px 25px 2px;
+width: 150px;
+}
 .zipcodebtn {
 	margin-left: 8px;
 }
