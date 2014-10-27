@@ -218,7 +218,6 @@ function getTopVideos{
 		   videoCategoryId: '25',
 		   maxResults: 5});
 	
-	var id = topVideos.items
 	$.each(videoList.items.slice(0,0), function(index, video)
 	{
 		var topHtml = '<div class="description">Top News Videos:</div><br>'
