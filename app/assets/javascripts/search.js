@@ -221,17 +221,15 @@ function getTopVideos()
 		   maxResults: 5});
 	
 	topVideos.execute(function(response) {
-		alert("Done!");
 		if (response.items == undefined || response.items.length == 0)
 		{//No results
 			$('#topNewsVideos').html('<div class="description">Top News Videos:</div><br><h4>No videos found</h4>');
 		} else {
 			var video = response.items[0];
-			alert(video.id);
 			var topHtml = '<div class="description">Top News Videos:</div><br>'
 			topHtml += '<iframe width="640" height="390" src="http://www.youtube.com/embed/';
 			topHtml += video.id;
-			topHtml += ' frameborder="0" allowfullscreen></iframe>';
+			topHtml += '" frameborder="0" allowfullscreen></iframe>';
 			$('#topNewsVideos').html(topHtml);
 		}
 	});
