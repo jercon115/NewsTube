@@ -8,19 +8,28 @@
     	}
     	</script>
 	</head>
+	<nav class="navbar" role="navigation">
+	  <div class="container-fluid">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <img class="headerImg" src="assets/globe.png"/><a class="title", href="home">NewsTube</a><form action="javascript:search()"><input type="text" class="form-control" placeholder="Search"><button type="submit" class="btn" >Find Videos</button></form>
+	      <span class="motto">a better news video search</span>
+	    </div>
+	  </div><!-- /.container-fluid -->
+	</nav>
 	<body onload="initSearch()" style="padding:0px">
 		<input type="hidden" id="landingPage" value="true"/>
 		<div class="header">
 			<div id="headerContents">
-				<div class="logo">
-					<a class="title", href="home">NewsTube</a>
-					<span class="tagLine">a better news video search</span>
-				</div>
-				
-				<form class="queryForm" action="javascript:search()">
-					<input id="query" class="search" type="text" placeholder="Search" />
-					<button class="btn">Go!</button>
-				</form>
+				<!--<div class="logo">-->
+				<!--	<a class="title", href="home">NewsTube</a>-->
+				<!--	<span class="tagLine">a better news video search</span>-->
+				<!--</div>-->
+				<!---->
+				<!--<form class="queryForm" action="javascript:search()">-->
+				<!--	<input id="query" class="search" type="text" placeholder="Search" />-->
+				<!--	<button class="btn">Go!</button>-->
+				<!--</form>-->
 				
 				<div id="topNewsVideos">
 					<div class="description">Top News Videos:</div><br>
@@ -30,7 +39,7 @@
 		</div>
 		
 		<div class="categories">
-			<div class="category" onclick="toggleCategory('prominent')">MEDIA SOURCES</div>
+			<div class="category" onclick="toggleCategory('prominent')">MORE TOP VIDEOS</div>
 			<div id="prominentTriWrapper" class="triangleWrapper">
 				<div class="triangle"></div>
 				<div class="description">Videos from Prominent International News Sites</div>
@@ -40,33 +49,33 @@
 				</div>
 			</div>
 
-			<div class="category" onclick="toggleCategory('local')">LOCAL</div>
-			<div id="localTriWrapper" class="triangleWrapper">
-				<div class="triangle"></div>
-				<div class="description">Videos from local TV News Stations</div>
-				<form action="javascript:searchLocal()" class="zipcodeform">
-					<h4 class="zipcodelabel">ZIP Code: </h4>
-					<input id="zipcode" type="text" />
-					<button class="btn zipcodebtn">Update</button>
-				</form>
-			</div>
-			<div id="localWrapper" class="videoListWrapper">
-				<div id="local" class="videoList">
-				</div>
-				<div id="hiddenLocalHelper" style="display:none"></div>
-			</div>
+			<!--<div class="category" onclick="toggleCategory('local')">LOCAL</div>-->
+			<!--<div id="localTriWrapper" class="triangleWrapper">-->
+			<!--	<div class="triangle"></div>-->
+			<!--	<div class="description">Videos from local TV News Stations</div>-->
+			<!--	<form action="javascript:searchLocal()" class="zipcodeform">-->
+			<!--		<h4 class="zipcodelabel">ZIP Code: </h4>-->
+			<!--		<input id="zipcode" type="text" />-->
+			<!--		<button class="btn zipcodebtn">Update</button>-->
+			<!--	</form>-->
+			<!--</div>-->
+			<!--<div id="localWrapper" class="videoListWrapper">-->
+			<!--	<div id="local" class="videoList">-->
+			<!--	</div>-->
+			<!--	<div id="hiddenLocalHelper" style="display:none"></div>-->
+			<!--</div>-->
 
-			<div class="category" onclick="toggleCategory('documentary')">DOCUMENTARY</div>
-			<div id="documentaryTriWrapper" class="triangleWrapper">
-				<div class="triangle"></div>
-				<div class="description">Documentary video</div>
-			</div>
-			<div id="documentaryWrapper" class="videoListWrapper">
-				<div id="documentary" class="videoList">
-				</div>
-			</div>
+			<!--<div class="category" onclick="toggleCategory('documentary')">DOCUMENTARY</div>-->
+			<!--<div id="documentaryTriWrapper" class="triangleWrapper">-->
+			<!--	<div class="triangle"></div>-->
+			<!--	<div class="description">Documentary video</div>-->
+			<!--</div>-->
+			<!--<div id="documentaryWrapper" class="videoListWrapper">-->
+			<!--	<div id="documentary" class="videoList">-->
+			<!--	</div>-->
+			<!--</div>-->
 
-			<div class="category" onclick="toggleCategory('twitter')">TWITTER</div>
+			<div class="category" onclick="toggleCategory('twitter')">TRENDING ON TWITTER</div>
 			<div id="twitterTriWrapper" class="triangleWrapper">
 				<div class="triangle"></div>
 				<div class="description">Videos that are trending on twitter</div>
@@ -77,15 +86,15 @@
 				<div id="hiddentwitter" style="display:none"></div>
 			</div>
 
-			<div class="category" onclick="toggleCategory('advocacy')">ADVOCACY</div>
-			<div id="advocacyTriWrapper" class="triangleWrapper">
-				<div class="triangle"></div>
-				<div class="description">Videos made by advocacy groups</div>
-			</div>
-			<div id="advocacyWrapper" class="videoListWrapper">
-				<div id="advocacy" class="videoList">
-				</div>
-			</div>
+			<!--<div class="category" onclick="toggleCategory('advocacy')">ADVOCACY</div>-->
+			<!--<div id="advocacyTriWrapper" class="triangleWrapper">-->
+			<!--	<div class="triangle"></div>-->
+			<!--	<div class="description">Videos made by advocacy groups</div>-->
+			<!--</div>-->
+			<!--<div id="advocacyWrapper" class="videoListWrapper">-->
+			<!--	<div id="advocacy" class="videoList">-->
+			<!--	</div>-->
+			<!--</div>-->
 		</div>
 	</body>
 </html>

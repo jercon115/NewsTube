@@ -20,7 +20,22 @@ a {
 td {
 	padding: 1px 10px;
 }
+.title {
+	font-weight:bold;
+	font-family: Courier;
+	margin-right: 15%;
+	margin-top: 10px;
+	color: black;
+	text-shadow:
+	-1px -1px 0 #000,
+	1px -1px 0 #000,
+	-1px 1px 0 #000,
+	1px 1px 0 #000;  
 
+}
+.btn{
+	margin-left: 10px;
+}
 .header {
 	margin-top: 150px;
 	margin-bottom: 30px;
@@ -41,11 +56,14 @@ td {
 	color: white;
 }
 
-.tagLine {
+.motto {
 	display: block;
 	font-size: 23px;
 	margin: 15px 0px;
-	white-space: nowrap;
+	font-weight:bold;
+	color: black;
+	font-style: italic;
+	
 }
 
 .title:hover {
@@ -178,4 +196,8 @@ td {
 	padding-bottom: 10px;
 	font-weight:bold;
 	white-space: nowrap;
+}
+.navbar {
+	color:white;
+	background: red;
 }
