@@ -210,7 +210,8 @@ function displayVideo(channel, time, videoId, imgUrl, title, category)
   $('#' + category).append(video);
 }
 
-function getTopVideos{
+function getTopVideos()
+{
 	var topVideos = gapi.client.youtube.videos.list({
 		   part: 'snippet',
 		   chart: 'mostPopular',
