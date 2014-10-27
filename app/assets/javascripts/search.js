@@ -213,16 +213,15 @@ function displayVideo(channel, time, videoId, imgUrl, title, category)
 
 function getTopVideos()
 {
-	alert("Test1");
 	var topVideos = gapi.client.youtube.videos.list({
 		   part: 'snippet',
 		   chart: 'mostPopular',
 		   regionCode: 'US',
 		   videoCategoryId: '25',
 		   maxResults: 5});
-	alert("Test");
 	
 	topVideos.execute(function(response) {
+		alert("Done!");
 		if (response.items == undefined || response.items.length == 0)
 		{//No results
 		alert("No results");
