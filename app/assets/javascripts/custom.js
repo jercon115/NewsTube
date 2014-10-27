@@ -77,11 +77,7 @@ function adjustHeaderCSS()
 }
 
 function handleTopVid(selectedVid) {
-	$(".topVid").css({
-		display: none;
-	});
+	$(".topVid").css("display","none");
 	
-	$('#' + selectedVid).css({
-		display: inline;
-	});
+	$('#' + selectedVid).css("display","inline");
 }

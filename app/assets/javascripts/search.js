@@ -229,7 +229,7 @@ function getTopVideos()
 			$.each(response.items, function(index, video) {
 				var videoHtml = '<iframe';
 				videoHtml += ' id="topVid'+(index+1)+'"';
-				videoHtml += ' width="640" height="390" src="http://www.youtube.com/embed/';
+				videoHtml += ' class="topVid" width="640" height="390" src="http://www.youtube.com/embed/';
 				videoHtml += video.id;
 				videoHtml += '" frameborder="0" allowfullscreen></iframe>';
 				
