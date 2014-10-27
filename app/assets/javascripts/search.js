@@ -221,9 +221,10 @@ function getTopVideos{
 	var id = topVideos.items
 	$.each(videoList.items.slice(0,0), function(index, video)
 	{
-	var topHtml = '<div class="description">Top News Videos:</div><br>'
-	topHtml += '<iframe width="640" height="390" src="http://www.youtube.com/embed/';
-	topHtml += video.id;
-	topHtml += 'frameborder="0" allowfullscreen></iframe>';
-	$('#topNewsVideos').html(topHtml);	
+		var topHtml = '<div class="description">Top News Videos:</div><br>'
+		topHtml += '<iframe width="640" height="390" src="http://www.youtube.com/embed/';
+		topHtml += video.id;
+		topHtml += 'frameborder="0" allowfullscreen></iframe>';
+		$('#topNewsVideos').html(topHtml);	
+	}
 }
