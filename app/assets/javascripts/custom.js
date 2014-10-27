@@ -57,7 +57,7 @@ function adjustHeaderCSS()
 		left: "20px"
 	});
 
-	$("#headerImages").css({
+	$("#headerTopVideos").css({
 		display: 'none'
 	});
 
