@@ -75,3 +75,13 @@ function adjustHeaderCSS()
 		marginBottom: "0px"
 	});
 }
+
+function handleTopVid(selectedVid) {
+	$(".topVid").css({
+		display: none;
+	});
+	
+	$('#' + selectedVid).css({
+		display: inline;
+	});
+}
