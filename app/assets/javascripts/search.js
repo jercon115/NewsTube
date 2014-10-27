@@ -222,9 +222,10 @@ function getTopVideos()
 	
 	topVideos.execute(function(response) {
 		alert("Done!");
+		alert(response.items.length);
 		if (response.items == undefined || response.items.length == 0)
 		{//No results
-		alert("No results");
+			alert("No results");
 		}
 	  
 		$.each(response.slice(0,1), function(index, video)
