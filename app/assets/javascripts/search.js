@@ -8,12 +8,7 @@ function onYouTubeApiLoad() {
 }
 
 function searchWithIds(prominentIds, advocacyIds){  
-  var q;
-  //alert("here");
-  if ($('#query').val()){ q = $('#query').val();}
-  else {
-      q = '';
-  }
+  var q = $('#query').val();
   var category = '';
 
   //Prominent
@@ -244,8 +239,4 @@ function getTopVideos()
 			handleTopVid('topVid1');
 		}
 	});
-             $('.categories').fadeIn('slow');
-             toggleCategory('prominent');
-             displayVideos(topVideos, 'prominent');
-             
 }

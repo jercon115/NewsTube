@@ -7,7 +7,6 @@ function initSearch() {
     });
 }
 
-
 function toggleCategory(category)
 {
 	$('#' + category + 'TriWrapper').slideToggle('slow');
