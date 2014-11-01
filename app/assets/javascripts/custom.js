@@ -63,7 +63,6 @@ function adjustHeaderCSS()
 
 	$(".queryForm").css({
 		display: "inline-block",
-		width: "360px",
 		textAlign: "center",
 		verticalAlign: "top",
 		marginTop: "30px",

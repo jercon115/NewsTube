@@ -22,11 +22,9 @@ td {
 }
 
 .header {
-	margin-top: 50px;
-	margin-bottom: 30px;
-	font-weight:bold;
-	min-width: 500px;
-	padding-top: 20px;
+	marginTop: 0;
+	height: '100px';
+	borderLeftWidth: "200px";
 }
 
 .logo {
@@ -58,8 +56,9 @@ td {
 }
 
 .search {
-	width:280px;
-	margin-right: 10px;
+	width:100px;
+	margin-left: 5px;
+	margin-right: 5px;
 }
 
 .category {

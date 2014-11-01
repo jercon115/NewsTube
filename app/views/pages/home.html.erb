@@ -18,7 +18,17 @@
 				</div>
 				
 				<form class="queryForm" action="javascript:search()">
+					Find
 					<input id="query" class="search" type="text" placeholder="Search" />
+					videos from
+					<input id="location" class="search" type="text" placeholder="anywhere"/>
+					ordered by
+					<select class ="search" id="ordered_by">
+					<option value="date">date</option>
+					<option value="rating">likes</option>
+					<option value="views">views</option>
+					<option value="length">length</option>
+					</select>
 					<button class="btn">Go!</button>
 				</form>
 				
