@@ -266,11 +266,11 @@ function displayTopVideos(videoList) {
 			});
 			
 			var topHtml = '';
-			var mid = Math.floor(response.items.length*1.0/4.0);
-			var start = Math.max(0,mid-2);
-			var end = Math.min(response.items.length,mid+3);
+			//var mid = Math.floor(response.items.length*1.0/4.0);
+			//var start = Math.max(0,mid-2);
+			//var end = Math.min(response.items.length,mid+3);
 			var count = 1;
-			$.each(response.items.slice(start,end), function(index, video) {
+			$.each(response.items.slice(0,5), function(index, video) {
 				var videoHtml = '<iframe';
 				videoHtml += ' id="topVid'+count+'"';
 				videoHtml += ' class="topVid" width="640" height="390" src="http://www.youtube.com/embed/';
