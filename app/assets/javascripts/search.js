@@ -220,7 +220,7 @@ function getTopVideosRecursive(channelList, videoList) {
   } else {  
 	var id = channelList.pop();
 	var d = new Date();
-	d.setMonth(d.getMonth()-1);
+	d.setDate(d.getDate()-2);
 	var nextRequest = gapi.client.youtube.search.list({
 		channelId: id,
 		part: 'snippet',
