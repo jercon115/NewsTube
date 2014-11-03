@@ -4,7 +4,7 @@ function onClientLoad() {
 
 function onYouTubeApiLoad() {
    gapi.client.setApiKey('AIzaSyAFxd-832oMCK_33cqsRBBoh7EdYHzV2oM'); //Change to your own Youtube API key here
-   getTopVideos();
+   getTopVideos(prominentIds, advocacyIds);
 }
 
 function searchWithIds(prominentIds, advocacyIds){  
@@ -82,8 +82,6 @@ function twitterSearch()
 
 }
 
-
-
 function searchMultipleChannels(channelList, q, category) {
   searchMultipleChannelsRecursive(channelList, q, category, []);
 }
@@ -96,14 +94,11 @@ function searchMultipleChannelsRecursive(channelList, q, category, videoList) {
 
   } else {  
      var id = channelList.pop();
-     //var d = new Date();
-     //d.setFullYear(d.getFullYear() - 1);
      var nextRequest = gapi.client.youtube.search.list({
        q: q,
        channelId: id,
        part: 'snippet',
        order: 'date',
-       //publishedAfter: d,
        maxResults: 20});
 
     nextRequest.execute(function(response) {
@@ -211,32 +206,93 @@ function displayVideo(channel, time, videoId, imgUrl, title, category)
   $('#' + category).append(video);
 }
 
-function getTopVideos()
+function getTopVideos(prominentIds, advocacyIds)
 {
-	var topVideos = gapi.client.youtube.videos.list({
-		   part: 'snippet',
-		   chart: 'mostPopular',
-		   regionCode: 'US',
-		   videoCategoryId: '25',
-		   maxResults: 5});
-	
-	topVideos.execute(function(response) {
-		if (response.items == undefined || response.items.length == 0)
-		{//No results
-			$('#topNewsVideos').html('<div class="description">Top News Videos:</div><br><h4>No videos found</h4>');
-		} else {
-			var topHtml = '<div class="description">Top News Videos:</div><br>';
-			$.each(response.items, function(index, video) {
+	getTopVideosRecursive(prominentIds.concat(advocacyIds), [])
+}
+
+function getTopVideosRecursive(channelList, videoList) {
+  if (channelList.length < 1 || videoList.length > 50)
+  {
+
+	displayTopVideos(videoList.splice(0,Math.min(50,videoList.length)));
+
+  } else {  
+	var id = channelList.pop();
+	var d = new Date();
+	d.setMonth(d.getMonth()-1);
+	var nextRequest = gapi.client.youtube.search.list({
+		channelId: id,
+		part: 'snippet',
+		order: 'viewCount',
+		type: 'video',
+		publishedAfter: ISODateString(d),
+		maxResults: 1});
+		
+	nextRequest.execute(function(response) {
+		if (typeof response.items != "undefined") {
+			$.merge(videoList, response.items);
+		}
+
+		getTopVideosRecursive(channelList, videoList);
+    });
+  }
+}
+
+function displayTopVideos(videoList) {
+	if (videoList == undefined || videoList.length == 0)
+	{//No results
+		$('#topNewsVideos').html('<h4>No videos found</h4>');
+	}
+	else
+	{
+		var videoIds = "";
+		$.each(videoList, function(index, video) {
+			videoIds += video.id.videoId;
+			if (index < videoList.length-1) videoIds += ',';
+		});
+		
+		var request = gapi.client.youtube.videos.list({
+		   id: videoIds,
+		   part: 'statistics'});
+		
+		request.execute(function(response) {
+		  if (typeof response.items == "undefined") alert("undefined");
+		  if (typeof response.items != "undefined") {
+			response.items.sort(function(a,b){
+			  a = parseInt(a.statistics.viewCount);
+			  b = parseInt(b.statistics.viewCount);
+			  return b-a;
+			});
+			
+			var topHtml = '';
+			var mid = Math.floor(response.items.length*1.0/4.0);
+			var start = Math.max(0,mid-2);
+			var end = Math.min(response.items.length,mid+3);
+			var count = 1;
+			$.each(response.items.slice(start,end), function(index, video) {
 				var videoHtml = '<iframe';
-				videoHtml += ' id="topVid'+(index+1)+'"';
+				videoHtml += ' id="topVid'+count+'"';
 				videoHtml += ' class="topVid" width="640" height="390" src="http://www.youtube.com/embed/';
 				videoHtml += video.id;
 				videoHtml += '" frameborder="0" allowfullscreen></iframe>';
 				
 				topHtml += videoHtml;
+				count++;
 			});
 			$('#topNewsVideos').html(topHtml);
 			handleTopVid('topVid1');
-		}
-	});
+		  }
+		});
+	}
+}
+
+function ISODateString(d){
+ function pad(n){return n<10 ? '0'+n : n}
+ return d.getUTCFullYear()+'-'
+      + pad(d.getUTCMonth()+1)+'-'
+      + pad(d.getUTCDate())+'T'
+      + pad(d.getUTCHours())+':'
+      + pad(d.getUTCMinutes())+':'
+      + pad(d.getUTCSeconds())+'Z';
 }

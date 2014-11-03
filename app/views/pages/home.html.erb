@@ -2,13 +2,15 @@
 	<head>
     	<script src="https://apis.google.com/js/client.js?onload=onClientLoad" type="text/javascript"></script>
     	<script type="text/javascript">
-    	function search()
-    	{
-    		searchWithIds(<%= @prominentIds.to_json.html_safe %>, <%= @advocacyIds.to_json.html_safe %>);
-    	}
+			function search()
+			{
+				searchWithIds(<%= @prominentIds.to_json.html_safe %>, <%= @advocacyIds.to_json.html_safe %>);
+			}
+			prominentIds = <%= @prominentIds.to_json.html_safe %>;
+			advocacyIds = <%= @advocacyIds.to_json.html_safe %>;
     	</script>
 	</head>
-	<body onload="initSearch()" style="padding:0px">
+	<body onload="initSearch();" style="padding:0px">
 		<input type="hidden" id="landingPage" value="true"/>
 		<div class="header">
 			<div id="headerContents">
@@ -32,8 +34,8 @@
 					<button class="btn">Go!</button>
 				</form>
 				
+				<div class="description">Top News Videos:</div><br>
 				<div id="topNewsVideos" class = "headerTopVideos">
-					<div class="description">Top News Videos:</div><br>
 					<h4>Loading videos...</h4><img style="margin-top:30px" src="assets/fancybox_loading.gif"/>
 				</div>
 				
