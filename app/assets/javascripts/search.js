@@ -18,7 +18,7 @@ function searchWithIds(prominentIds, advocacyIds){
   searchMultipleChannels(prominentIds, q, category1);
 
   //Local
-  searchLocal();
+  //searchLocal();
 
   //Documentary
   var category3 = 'documentary';
@@ -49,7 +49,9 @@ function searchLocal()
   var q = $('#query').val();
   var category2 = 'local';    
 
-  var zipcode = $('#zipcode').val();
+  //var zipcode = $('#zipcode').val();
+  var market = document.getElementById('marketselect').selectedText;
+  alert(document.getElementsByTagName("option")[market].value);
   if (zipcode == '')
   {
     $('#' + category2).html('<h4>Enter a zipcode to search</h4>');
