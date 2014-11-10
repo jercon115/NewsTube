@@ -1,13 +1,15 @@
 <html>
 	<head>
     	<script src="https://apis.google.com/js/client.js?onload=onClientLoad" type="text/javascript"></script>
-    	<script type="text/javascript">
+    	<script type="text/javascript">			
 			function search()
 			{
 				searchWithIds(<%= @prominentIds.to_json.html_safe %>, <%= @advocacyIds.to_json.html_safe %>);
 			}
-			prominentIds = <%= @prominentIds.to_json.html_safe %>;
-			advocacyIds = <%= @advocacyIds.to_json.html_safe %>;
+			function onYouTubeApiLoad() {
+			   gapi.client.setApiKey('AIzaSyAFxd-832oMCK_33cqsRBBoh7EdYHzV2oM'); //Change to your own Youtube API key here
+			   getTopVideos(<%= @prominentIds.to_json.html_safe %>, <%= @advocacyIds.to_json.html_safe %>);
+			}
     	</script>
 	</head>
 	<body onload="initSearch();" style="padding:0px">
@@ -20,16 +22,7 @@
 				</div>
 				
 				<form class="queryForm" action="javascript:search()">
-					Find
 					<input id="query" class="search" type="text" placeholder="Search" />
-					videos from
-					<input id="location" class="search" type="text" placeholder="anywhere"/>
-					ordered by
-					<select class ="search" id="ordered_by">
-					<option value="date">date</option>
-					<option value="rating">likes</option>
-					<option value="views">views</option>
-					<option value="length">length</option>
 					</select>
 					<button class="btn">Go!</button>
 				</form>
@@ -60,7 +53,7 @@
 				</div>
 			</div>
 
-			<div class="category" onclick="toggleCategory('local')">LOCAL</div>
+			<div class="category" onclick="toggleCategory('local')">LOCAL SOURCES</div>
 			<div id="localTriWrapper" class="triangleWrapper">
 				<div class="triangle"></div>
 				<div class="description">Videos from local TV News Stations</div>
@@ -104,6 +97,33 @@
 			</div>
 			<div id="advocacyWrapper" class="videoListWrapper">
 				<div id="advocacy" class="videoList">
+				</div>
+			</div>
+			
+			<div class="category" onclick="toggleCategory('live')">LIVE BROADCASTS</div>
+			<div id="liveTriWrapper" class="triangleWrapper">
+				<div class="triangle"></div>
+				<div class="description">Currently streaming live broadcasts</div>
+			</div>
+			<div id="liveWrapper" class="videoListWrapper">
+				<div id="live" class="videoList">
+				</div>
+			</div>
+			
+			<div class="category" onclick="toggleCategory('geolocation')">GEOLOCATION</div>
+			<div id="geolocationTriWrapper" class="triangleWrapper">
+				<div class="triangle"></div>
+				<div class="description">Videos submitted in specified location</div>
+				<form action="javascript:searchGeo()" class="locform">
+					<h4 class="loclabel">Location: </h4>
+					<input id="loc" type="text" />
+					<h4 class="loclabel">Radius: </h4>
+					<input id="radius" type="text" />
+					<button class="btn locationbtn">Update</button>
+				</form>
+			</div>
+			<div id="geolocationWrapper" class="videoListWrapper">
+				<div id="geolocation" class="videoList">
 				</div>
 			</div>
 		</div>

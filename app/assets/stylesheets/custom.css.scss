@@ -56,7 +56,7 @@ td {
 }
 
 .search {
-	width:100px;
+	width:250px;
 	margin-left: 5px;
 	margin-right: 5px;
 }
@@ -150,22 +150,22 @@ td {
 	padding: 0px 10px;
 }
 
-#zipcode {
+#zipcode, #loc, #radius {
 	width: 65px;
 	margin-right: 8px;
 	margin-left: 10px;
 }
 
-.zipcodebtn {
+.zipcodebtn, .locbtn {
 	margin-left: 8px;
 }
 
-.zipcodeform {
+.zipcodeform, .locform {
 	margin-bottom:0px;
 	padding-bottom: 15px;
 }
 
-.zipcodelabel {
+.zipcodelabel, .loclabel {
 	display: inline-block;
 	vertical-align: middle;
 }
