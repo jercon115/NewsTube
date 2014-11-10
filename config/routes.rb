@@ -1,12 +1,15 @@
 NewsTube::Application.routes.draw do
 
+  get "localsources/findvideos"
   resources :zipcodes
+  resources :markets
 
   resources :channels
 
   root to: 'pages#home'
   get "home" => "pages#home"
   get "localchannels" => "pages#localchannels"
+  get "localsources" => "localsources#findvideos"
   post "/loadzipdb" => "zipcodes#loadzipdb"
   get "/resetzipdb" => "zipcodes#resetzipdb"
   post "/loadchanneldb" => "channels#loadchanneldb"

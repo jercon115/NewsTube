@@ -62,8 +62,8 @@ function searchLocal()
 {
   var q = $('#query').val();
   var category2 = 'local';    
-
-  //var zipcode = $('#zipcode').val();
+   alert ("HERE");
+  var zipcode = $('#zipcode').val();
   var market = document.getElementById('marketselect').selectedIndex;
   alert(document.getElementsByTagName("option")[market].value);
   if (zipcode == '')
