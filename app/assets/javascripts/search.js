@@ -2,11 +2,6 @@ function onClientLoad() {
    gapi.client.load('youtube', 'v3', onYouTubeApiLoad);
 }
 
-function onYouTubeApiLoad() {
-   gapi.client.setApiKey('AIzaSyAFxd-832oMCK_33cqsRBBoh7EdYHzV2oM'); //Change to your own Youtube API key here
-   getTopVideos(prominentIds, advocacyIds);
-}
-
 function searchWithIds(prominentIds, advocacyIds){  
   var q = $('#query').val();
   var category = '';
@@ -41,6 +36,25 @@ function searchWithIds(prominentIds, advocacyIds){
   displayLoading(category5);
   searchMultipleChannels(advocacyIds, q, category5);
 
+  //Live broadcasts
+  var category6 = 'live';
+  displayLoading(category6);
+  var dq = q.concat(" news");
+  var requestLive = gapi.client.youtube.search.list({
+         q: dq,
+         part: 'snippet',
+		 regionCode: 'US',
+		 type: 'video',
+		 eventType: 'live',
+         maxResults: 50
+  });
+  requestLive.execute(function(response) {
+    displayVideos(response.items, category6, false);
+  });
+  
+  //Geolocation
+  searchGeo();
+  
   openCategories();
 }
 
@@ -62,6 +76,35 @@ function searchLocal()
     $('#hiddenLocalHelper').load( "/localchannels?zipcode=" + $('#zipcode').val() + " #localChannelIds", function() {
       searchMultipleChannels(JSON.parse($('#localChannelIds').html()), q, category2);
     });
+  }
+}
+
+function searchGeo()
+{
+  var q = $('#query').val();
+  var category7 = 'geolocation';    
+
+  var location = $('#loc').val();
+  var radius = $('#radius').val();
+  if (location == '' || radius == '')
+  {
+    $('#' + category7).html('<h4>Enter a location to search</h4>');
+  }
+  else
+  {
+    displayLoading(category7);
+	var dq = q.concat(" news");
+	var requestGeo = gapi.client.youtube.search.list({
+	  q: dq,
+	  part: 'snippet',
+	  type: 'video',
+	  location: location,
+	  locationRadius: radius,
+	  maxResults: 50
+	});
+	requestGeo.execute(function(response) {
+	  displayVideos(response.items, category7, false);
+	});
   }
 }
 
@@ -113,7 +156,8 @@ function searchMultipleChannelsRecursive(channelList, q, category, videoList) {
   }
 }
 
-function displayVideos(videoList, category) {
+function displayVideos(videoList, category, sortVideos) {
+  if(typeof(sortVideos)==='undefined') sortVideos = true;
 
   if (videoList == undefined || videoList.length == 0)
   {//No results
@@ -121,11 +165,13 @@ function displayVideos(videoList, category) {
   }
   else
   {
-    videoList.sort(function(a,b){
-      a = new Date(a.snippet.publishedAt);
-      b = new Date(b.snippet.publishedAt);
-      return b-a;
-    });
+	if (sortVideos) {
+		videoList.sort(function(a,b){
+		  a = new Date(a.snippet.publishedAt);
+		  b = new Date(b.snippet.publishedAt);
+		  return b-a;
+		});
+	}
 
     $('#' + category).html('');
     displayNextVideos(videoList, category);
@@ -277,7 +323,7 @@ function displayTopVideos(videoList) {
 				videoHtml += ' id="topVid'+count+'"';
 				videoHtml += ' class="topVid" width="640" height="390" src="http://www.youtube.com/embed/';
 				videoHtml += video.id;
-				videoHtml += '" frameborder="0" allowfullscreen></iframe>';
+				videoHtml += '?enablejsapi=1" frameborder="0" allowfullscreen></iframe>';
 				
 				topHtml += videoHtml;
 				count++;

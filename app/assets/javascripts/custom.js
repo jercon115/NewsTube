@@ -77,6 +77,10 @@ function adjustHeaderCSS()
 
 function handleTopVid(selectedVid) {
 	$(".topVid").css("display","none");
+	// Pause all videos
+	$(".topVid").each(function() {
+		this.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+	});
 	
 	$('#' + selectedVid).css("display","inline");
 }
