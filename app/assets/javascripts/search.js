@@ -321,7 +321,7 @@ function displayTopVideos(videoList) {
 				videoHtml += ' id="topVid'+count+'"';
 				videoHtml += ' class="topVid" width="640" height="390" src="http://www.youtube.com/embed/';
 				videoHtml += video.id;
-				videoHtml += '" frameborder="0" allowfullscreen></iframe>';
+				videoHtml += '?enablejsapi=1" frameborder="0" allowfullscreen></iframe>';
 				
 				topHtml += videoHtml;
 				count++;

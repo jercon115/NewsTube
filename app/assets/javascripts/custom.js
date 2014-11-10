@@ -78,7 +78,7 @@ function adjustHeaderCSS()
 function handleTopVid(selectedVid) {
 	$(".topVid").css("display","none");
 	// Pause all videos
-	$('iframe[src*="http://www.youtube.com/embed/"]').each(function(i) {
+	$(".topVid").each(function() {
 		this.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
 	});
 	
