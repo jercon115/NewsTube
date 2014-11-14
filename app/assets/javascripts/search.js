@@ -58,25 +58,29 @@ function searchWithIds(prominentIds, advocacyIds){
   openCategories();
 }
 
-function searchLocal()
+function searchlocal(localids)
 {
-  var q = $('#query').val();
-  var category2 = 'local';    
-   alert ("HERE");
-  var zipcode = $('#zipcode').val();
-  var market = document.getElementById('marketselect').selectedIndex;
-  alert(document.getElementsByTagName("option")[market].value);
-  if (zipcode == '')
-  {
-    $('#' + category2).html('<h4>Enter a zipcode to search</h4>');
+   var x = document.getElementById("marketselect").selectedIndex;
+   var mchoice = document.getElementsByTagName("option")[x].value;
+   var locallist =[];
+      for (var i = 0; i < localids[0].length; i++){
+         if (localids[0][i] == mchoice) {
+            if (localids[1][i] != null) {
+               locallist.push(localids[1][i]);
+            }         
+         }
+      }
+   console.log(locallist);
+  var category2 = 'local';
+  var q;
+  if ($('#query').val()) {
+   q = $('#query').val();
   }
-  else
-  {
-    displayLoading(category2);
-    $('#hiddenLocalHelper').load( "/localchannels?zipcode=" + $('#zipcode').val() + " #localChannelIds", function() {
-      searchMultipleChannels(JSON.parse($('#localChannelIds').html()), q, category2);
-    });
+  else {
+   q = '';
   }
+  displayLoading(category2);
+  searchMultipleChannels(locallist, q, category2);
 }
 
 function searchGeo()
