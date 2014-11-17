@@ -1,5 +1,16 @@
 function onClientLoad() {
-   gapi.client.load('youtube', 'v3', onYouTubeApiLoad);
+	gapi.client.load('youtube', 'v3', onYouTubeApiLoad);
+}
+
+function onYouTubeApiLoad() {
+	gapi.client.setApiKey('AIzaSyAFxd-832oMCK_33cqsRBBoh7EdYHzV2oM'); //Change to your own Youtube API key here
+	$.getScript('https://maps.googleapis.com/maps/api/js?sensor=false&callback=onMapsLoad&key=AIzaSyDrX4G5qqb8QKy7MYCRLmViieJ6oT-DqFw');
+	homeTopVideos();
+}
+
+function onMapsLoad() {
+	geocoder = new google.maps.Geocoder();
+	//$('#search-button').attr('disabled', false);
 }
 
 function searchWithIds(prominentIds, advocacyIds){  
@@ -53,7 +64,7 @@ function searchWithIds(prominentIds, advocacyIds){
   });
   
   //Geolocation
-  searchGeo();
+  handleSearchGeo();
   
   openCategories();
 }
@@ -83,20 +94,36 @@ function searchlocal(localids)
   searchMultipleChannels(locallist, q, category2);
 }
 
-function searchGeo()
-{
-  var q = $('#query').val();
-  var category7 = 'geolocation';    
+function handleSearchGeo() {
+	var inputSearchLocation = $('#loc').val();
+	var inputSearchRadius = $('#radius').val();
+	var category7 = 'geolocation';
+	
+	if (inputSearchLocation == '' || inputSearchRadius == '')
+	{
+		$('#' + category7).html('<h4>Enter a location to search</h4>');
+	}
+	else
+	{
+		geocoder.geocode({ 'address': inputSearchLocation }, function(results, status) {
+			if (status == google.maps.GeocoderStatus.OK) {
+				//store latitude and longitude from geo coder into vars
+				var lat = results[0].geometry.location.lat();
+				var lng = results[0].geometry.location.lng();
+				searchGeo(lat+","+lng, inputSearchRadius);
+			} else {
+				$('#' + category7).html('<h4>Location not found</h4>');
+			}
+		});
+	}
+}
 
-  var location = $('#loc').val();
-  var radius = $('#radius').val();
-  if (location == '' || radius == '')
-  {
-    $('#' + category7).html('<h4>Enter a location to search</h4>');
-  }
-  else
-  {
-    displayLoading(category7);
+function searchGeo(location, radius)
+{
+	var q = $('#query').val();
+	var category7 = 'geolocation';
+
+	displayLoading(category7);
 	var dq = q.concat(" news");
 	var requestGeo = gapi.client.youtube.search.list({
 	  q: dq,
@@ -109,7 +136,6 @@ function searchGeo()
 	requestGeo.execute(function(response) {
 	  displayVideos(response.items, category7, false);
 	});
-  }
 }
 
 function twitterSearch()
