@@ -81,7 +81,6 @@ function searchlocal(localids)
             }         
          }
       }
-   console.log(locallist);
   var category2 = 'local';
   var q;
   if ($('#query').val()) {
