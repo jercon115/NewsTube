@@ -47,15 +47,15 @@ class PagesController < ApplicationController
   end
 
   def twitter
-      #please use your own api keys here 
-    Twitter.configure do |config|
-      config.consumer_key = 'ChH4jjRPwOn4l9ptn9q6ZZ2De'
-      config.consumer_secret = '1AgZCRJBtRQiXrCJNEjfRZsRC4dqVO6dj54VF4YvMFqT5M2fww'
-      config.oauth_token = '2837796245-TvfIANDk55Ek0iWSkdSlMiRofFCvOBz9GEqN1Xl'
-      config.oauth_token_secret = 'ebK4ChVc866ZEqW2IrF4IwpVwAKK7wvzJGHDtan3ZdfHB'
-    end
+	#please use your own api keys here 
+	client = Twitter::REST::Client.new do |config|
+	  config.consumer_key        = 'ChH4jjRPwOn4l9ptn9q6ZZ2De'
+	  config.consumer_secret     = '1AgZCRJBtRQiXrCJNEjfRZsRC4dqVO6dj54VF4YvMFqT5M2fww'
+	  config.access_token        = '2837796245-TvfIANDk55Ek0iWSkdSlMiRofFCvOBz9GEqN1Xl'
+	  config.access_token_secret = 'ebK4ChVc866ZEqW2IrF4IwpVwAKK7wvzJGHDtan3ZdfHB'
+	end
     query = params[:query] 
-    searcharr = Twitter.search(query +" youtube -rt", :count => 40, :result_type => "recent").results.map do |status|
+    searcharr = client.search(query +" youtube -rt", :result_type => "recent").take(40).collect do |status|
       "#{status.full_text}"
     end
   
