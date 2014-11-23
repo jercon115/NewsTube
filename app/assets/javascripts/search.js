@@ -133,7 +133,7 @@ function searchGeo(location, radius)
 	  maxResults: 50
 	});
 	requestGeo.execute(function(response) {
-	  displayVideos(response.items, category7, false);
+	  displayVideos(response.items, category7);
 	});
 }
 
@@ -297,7 +297,7 @@ function getTopVideosRecursive(channelList, videoList) {
   } else {  
 	var id = channelList.pop();
 	var d = new Date();
-	d.setDate(d.getDate()-2);
+	d.setDate(d.getDate()-1);
 	var nextRequest = gapi.client.youtube.search.list({
 		channelId: id,
 		part: 'snippet',
