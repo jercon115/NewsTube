@@ -387,7 +387,7 @@ function getFreebaseData(query) {
     var related_terms = '';
     $.each(response.result, function(i, result) {
       var r = {text:result['name']};
-      related_terms = related_terms + '  ' + r.text;
+      related_terms = related_terms + ",%nbsp;%nbsp;%nbsp;" + r.text;
     });
     $('#related').html(related_terms);
   });
