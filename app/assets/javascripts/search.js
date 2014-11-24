@@ -386,7 +386,8 @@ function getFreebaseData(query) {
   $.getJSON(service_url + '?callback=?', params, function(response) {
     var related_terms = '';
     $.each(response.result, function(i, result) {
-      related_terms = related_terms + '  ' + {text:result['name']};
+      var r = JSON.stringify({text:result['name']});
+      related_terms = related_terms + '  ' + r;
     });
     $('#related').html(related_terms);
   });
