@@ -385,9 +385,11 @@ function getFreebaseData(query) {
    };
   $.getJSON(service_url + '?callback=?', params, function(response) {
     var related_terms = '';
+	alert(response);
     $.each(response.result, function(i, result) {
       var r = {text:result['name']};
-      related_terms = related_terms + ",&nbsp;&nbsp;&nbsp;" + r.text;
+	  if (i > 0) related_terms = related_terms + ",&nbsp;&nbsp;&nbsp;";
+      related_terms = related_terms + r.text;
     });
     $('#related').html(related_terms);
   });
