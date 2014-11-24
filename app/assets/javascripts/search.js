@@ -382,6 +382,7 @@ function getFreebaseData(query) {
 	//$.getScript(freebaseURL)
          var service_url = 'https://www.googleapis.com/freebase/v1/search';
          var params = {
+            'key': 'AIzaSyB0Dyk_agM7muZMzeuIsU2IEEJ7tkNeZ-U',
             'query': query,
             'limit': 5,
             'indent': true
