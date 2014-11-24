@@ -15,7 +15,7 @@ function onMapsLoad() {
 
 function searchWithIds(prominentIds, advocacyIds){  
   var q = $('#query').val();
-  //getFreebaseData(q);
+  getFreebaseData(q);
   var category = '';
 
   //Prominent
@@ -385,7 +385,6 @@ function getFreebaseData(query) {
    };
   $.getJSON(service_url + '?callback=?', params, function(response) {
     var related_terms = '';
-	alert(response);
     $.each(response.result, function(i, result) {
       var r = {text:result['name']};
 	  if (i > 0) related_terms = related_terms + ",&nbsp;&nbsp;&nbsp;";
