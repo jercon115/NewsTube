@@ -15,6 +15,7 @@ function onMapsLoad() {
 
 function searchWithIds(prominentIds, advocacyIds){  
   var q = $('#query').val();
+  getFreebaseData(q);
   var category = '';
 
   //Prominent
@@ -372,4 +373,26 @@ function ISODateString(d){
       + pad(d.getUTCHours())+':'
       + pad(d.getUTCMinutes())+':'
       + pad(d.getUTCSeconds())+'Z';
+}
+
+function getFreebaseData(query) {
+         alert("here");
+	//var userInput = query;
+	//var freebaseURL = 'https://www.googleapis.com/freebase/v1/search?callback=relatedSearches&limit=5&query=' + userInput + '&key=AIzaSyB0Dyk_agM7muZMzeuIsU2IEEJ7tkNeZ-U';
+	//$.getScript(freebaseURL)
+         var service_url = 'https://www.googleapis.com/freebase/v1/search';
+         var params = {
+            'query': query,
+            'limit': 5,
+            'indent': true
+   };
+  $.getJSON(service_url + '?callback=?', params, function(response) {
+    $.each(response.result, function(i, result) {
+      //$('<div>', {text:result['name']}).appendTo(document.body);
+      var result2 = {text:result['name']};
+      console.log(result2);
+    });
+  });
+
+	
 }
