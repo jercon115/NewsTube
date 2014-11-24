@@ -15,7 +15,7 @@ function onMapsLoad() {
 
 function searchWithIds(prominentIds, advocacyIds){  
   var q = $('#query').val();
-  getFreebaseData(q);
+  //getFreebaseData(q);
   var category = '';
 
   //Prominent
