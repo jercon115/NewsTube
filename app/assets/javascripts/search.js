@@ -14,8 +14,8 @@ function onMapsLoad() {
 }
 
 function searchWithIds(prominentIds, advocacyIds){  
-  var q = $('#query').val();
-  getFreebaseData(q);
+  var q = $('#queryFormMajor input[name=query]').val();
+  getFreebaseData(q, 'relatedMajor', 'queryFormMajor');
   var category = '';
 
   //Prominent
@@ -23,10 +23,7 @@ function searchWithIds(prominentIds, advocacyIds){
   var category1 = 'prominent';
   displayLoading(category1);
   searchMultipleChannels(prominentIds, q, category1);
-
-  //Local
-  //searchLocal();
-
+  
   //Documentary
   var category3 = 'documentary';
   displayLoading(category3);
@@ -41,7 +38,7 @@ function searchWithIds(prominentIds, advocacyIds){
   });
 
   //Twitter
-  twitterSearch();
+  twitterSearch(q);
   
   //Advocacy
   var category5 = 'advocacy';
@@ -64,13 +61,10 @@ function searchWithIds(prominentIds, advocacyIds){
     displayVideos(response.items, category6, false);
   });
   
-  //Geolocation
-  handleSearchGeo();
-  
-  openCategories();
+  openCategories('majorCategories','prominent');
 }
 
-function searchlocal(localids)
+function searchWithLocal(localids)
 {
    var x = document.getElementById("marketselect").selectedIndex;
    var mchoice = document.getElementsByTagName("option")[x].value;
@@ -84,17 +78,24 @@ function searchlocal(localids)
       }
   var category2 = 'local';
   var q;
-  if ($('#query').val()) {
-   q = $('#query').val();
+  if ($('#queryFormLocal input[name=query]').val()) {
+   q = $('#queryFormLocal input[name=query]').val();
   }
   else {
    q = '';
   }
+  getFreebaseData(q, 'relatedLocal', 'queryFormLocal');
+  
   displayLoading(category2);
   searchMultipleChannels(locallist, q, category2);
+  
+  openCategories('localChannelsCategories','local');
 }
 
-function handleSearchGeo() {
+function searchWithGeo() {
+	var q = $('#queryFormGeo input[name=query]').val();
+	getFreebaseData(q, 'relatedGeo', 'queryFormGeo');
+
 	var inputSearchLocation = $('#loc').val();
 	var inputSearchRadius = $('#radius').val();
 	var category7 = 'geolocation';
@@ -110,37 +111,32 @@ function handleSearchGeo() {
 				//store latitude and longitude from geo coder into vars
 				var lat = results[0].geometry.location.lat();
 				var lng = results[0].geometry.location.lng();
-				searchGeo(lat+","+lng, inputSearchRadius);
+
+				displayLoading(category7);
+				var dq = q.concat(" news");
+				var requestGeo = gapi.client.youtube.search.list({
+				  q: dq,
+				  part: 'snippet',
+				  type: 'video',
+				  location: lat+','+lng,
+				  locationRadius: inputSearchRadius,
+				  maxResults: 50
+				});
+				requestGeo.execute(function(response) {
+				  displayVideos(response.items, category7);
+				});
+				
 			} else {
 				$('#' + category7).html('<h4>Location not found</h4>');
 			}
 		});
 	}
+	
+	openCategories('geotaggedCategories','geolocation');
 }
 
-function searchGeo(location, radius)
+function twitterSearch(q)
 {
-	var q = $('#query').val();
-	var category7 = 'geolocation';
-
-	displayLoading(category7);
-	var dq = q.concat(" news");
-	var requestGeo = gapi.client.youtube.search.list({
-	  q: dq,
-	  part: 'snippet',
-	  type: 'video',
-	  location: location,
-	  locationRadius: radius,
-	  maxResults: 50
-	});
-	requestGeo.execute(function(response) {
-	  displayVideos(response.items, category7);
-	});
-}
-
-function twitterSearch()
-{
-  var q = $('#query').val();
   var category4 = 'twitter';
   displayLoading(category4);
   q =encodeURIComponent(q);
@@ -332,7 +328,7 @@ function displayTopVideos(videoList) {
 		
 		var request = gapi.client.youtube.videos.list({
 		   id: videoIds,
-		   part: 'statistics'});
+		   part: 'snippet, statistics'});
 		
 		request.execute(function(response) {
 		  if (typeof response.items == "undefined") alert("undefined");
@@ -343,26 +339,49 @@ function displayTopVideos(videoList) {
 			  return b-a;
 			});
 			
-			var topHtml = '';
-			//var mid = Math.floor(response.items.length*1.0/4.0);
-			//var start = Math.max(0,mid-2);
-			//var end = Math.min(response.items.length,mid+3);
-			var count = 1;
 			$.each(response.items.slice(0,5), function(index, video) {
-				var videoHtml = '<iframe';
-				videoHtml += ' id="topVid'+count+'"';
-				videoHtml += ' class="topVid" width="640" height="390" src="http://www.youtube.com/embed/';
-				videoHtml += video.id;
-				videoHtml += '?enablejsapi=1" frameborder="0" allowfullscreen></iframe>';
-				
-				topHtml += videoHtml;
-				count++;
+				var date = new Date(video.snippet.publishedAt);
+				var newSlide = makeHomeSlide(video.snippet.channelTitle,
+					date.toDateString(),
+					video.id,
+					video.snippet.thumbnails.high.url,
+					video.snippet.title)
+				$('#homeSlides').append(newSlide);
 			});
-			$('#topNewsVideos').html(topHtml);
-			handleTopVid('topVid1');
+			
+			initScrolling();
 		  }
 		});
 	}
+}
+
+function makeHomeSlide(channel, time, videoId, imgUrl, title)
+{
+	var slide = $("<div>", {class: "homeSlide"});
+	
+	var video = $("<div>", {class: "videoDiv", style: "background-image: url(\'"+imgUrl+"\'); cursor: pointer; cursor: hand;"});
+	var desc = $("<div>", {class: "slideDesc"});
+	desc.append($("<div>", {class: "videoChannelName", title: channel, text: channel}));
+	desc.append($("<div>", {class: "videoDate", text: time}));
+	video.append(desc);
+	
+	video.append($("<div>", {class: "slideTitle", text: title}));
+	video.append($("<div>",{class: "playButton"}));
+	
+	slide.append(video);
+	slide.append($("<iframe>", {class: "player", width: "640", height: "390", frameborder: "0", allowfullscreen: true}));
+	
+	slide.click(function() {
+		stopScrolling();
+		
+		var iframe = $(this).find("iframe")[0];
+		var videoDiv = $(this).find(".videoDiv")[0];
+		
+		if (iframe) iframe.src = 'http://www.youtube.com/embed/' + videoId + '?enablejsapi=1&autoplay=1';
+		if (videoDiv) videoDiv.style.display = 'none';
+	});
+
+	return slide;
 }
 
 function ISODateString(d){
@@ -375,23 +394,39 @@ function ISODateString(d){
       + pad(d.getUTCSeconds())+'Z';
 }
 
-function getFreebaseData(query) {
-         var service_url = 'https://www.googleapis.com/freebase/v1/search';
-         var params = {
-            'key': 'AIzaSyB0Dyk_agM7muZMzeuIsU2IEEJ7tkNeZ-U',
-            'query': query,
-            'limit': 5,
-            'indent': true
-   };
-  $.getJSON(service_url + '?callback=?', params, function(response) {
-    var related_terms = '';
-    $.each(response.result, function(i, result) {
-      var r = {text:result['name']};
-	  if (i > 0) related_terms = related_terms + ",&nbsp;&nbsp;&nbsp;";
-      related_terms = related_terms + r.text;
-    });
-    $('#related').html(related_terms);
-  });
+function getFreebaseData(query, relatedtermsID, target) {
+	var service_url = 'https://www.googleapis.com/freebase/v1/search';
+	var params = {
+		'key': 'AIzaSyB0Dyk_agM7muZMzeuIsU2IEEJ7tkNeZ-U',
+		'query': query,
+		'limit': 5,
+		'indent': true
+	};
+	$.getJSON(service_url + '?callback=?', params, function(response) {
+		response = {
+			result: [{name: 'test1'}, {name: 'test2'}, {name: 'test3'}]
+		};
+		
+		if (response.result) {
+			$('#'+relatedtermsID).html('Related searches: ');
+			$.each(response.result, function(i, result) {
+				$('#'+relatedtermsID).append(
+					makeRelatedTerm(result.name, target)
+				);
+			});
+		}
+	});
+}
 
-	
+function makeRelatedTerm(term, targetForm) {
+	var relatedTerm = $("<div>", {class: "relatedTerm"});
+
+	var link = $("<a>", {text: term});
+	link.click(function() {
+		$('#'+targetForm+' input[name=query]').val(term);
+		document.getElementById(targetForm).submit();
+	});
+	relatedTerm.append(link);
+
+	return relatedTerm;
 }
