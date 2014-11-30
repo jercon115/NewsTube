@@ -402,11 +402,7 @@ function getFreebaseData(query, relatedtermsID, target) {
 		'limit': 5,
 		'indent': true
 	};
-	$.getJSON(service_url + '?callback=?', params, function(response) {
-		response = {
-			result: [{name: 'test1'}, {name: 'test2'}, {name: 'test3'}]
-		};
-		
+	$.getJSON(service_url + '?callback=?', params, function(response) {		
 		if (response.result) {
 			$('#'+relatedtermsID).html('Related searches: ');
 			$.each(response.result, function(i, result) {
