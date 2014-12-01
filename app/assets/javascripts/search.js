@@ -4,13 +4,12 @@ function onClientLoad() {
 
 function onYouTubeApiLoad() {
 	gapi.client.setApiKey('AIzaSyAFxd-832oMCK_33cqsRBBoh7EdYHzV2oM'); //Change to your own Youtube API key here
-	$.getScript('https://maps.googleapis.com/maps/api/js?sensor=false&callback=onMapsLoad&key=AIzaSyDrX4G5qqb8QKy7MYCRLmViieJ6oT-DqFw');
+	$.getScript('https://maps.googleapis.com/maps/api/js?sensor=false&callback=onMapsLoad&key=AIzaSyDrX4G5qqb8QKy7MYCRLmViieJ6oT-DqFw'); // Change to your own Google maps API key here
 	homeTopVideos();
 }
 
 function onMapsLoad() {
 	geocoder = new google.maps.Geocoder();
-	//$('#search-button').attr('disabled', false);
 }
 
 function searchWithIds(prominentIds, advocacyIds){  
@@ -397,7 +396,7 @@ function ISODateString(d){
 function getFreebaseData(query, relatedtermsID, target) {
 	var service_url = 'https://www.googleapis.com/freebase/v1/search';
 	var params = {
-		'key': 'AIzaSyB0Dyk_agM7muZMzeuIsU2IEEJ7tkNeZ-U',
+		'key': 'AIzaSyB0Dyk_agM7muZMzeuIsU2IEEJ7tkNeZ-U', // Your Freebase API Key
 		'query': query,
 		'limit': 5,
 		'indent': true
